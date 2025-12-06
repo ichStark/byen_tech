@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ByenTech JPG → PDF Converter</title>
+    <meta name="description" content="Seamless JPG/PNG to PDF conversion with a futuristic glassmorphism UI by ByenTech." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" href="./assets/logo.svg" />
+  </head>
+  <body>
+    <div class="app-bg"></div>
+    <nav class="bt-nav" aria-label="Primary">
+      <div class="bt-nav__inner">
+        <a class="bt-nav__brand" href="index.html">
+          <img class="bt-logo" src="./assets/logo.svg" alt="ByenTech logo" />
+          <span class="bt-brand-text">ByenTech</span>
+        </a>
+        <ul class="bt-nav__links">
+          <li><a href="#" class="nav-link is-active">Home</a></li>
+          <li><a href="#" class="nav-link">Tools</a></li>
+          <li><a href="#" class="nav-link">Contact</a></li>
+        </ul>
+        <button id="theme-toggle" class="theme-toggle premium-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+          <span class="toggle-track" aria-hidden="true"></span>
+          <span class="toggle-knob">
+            <span class="sun" aria-hidden="true"></span>
+            <span class="moon" aria-hidden="true"></span>
+          </span>
+        </button>
+      </div>
+    </nav>
+    <header class="bt-header">
+      <div class="bt-header__brand">
+        
+        <h1 class="bt-title">Image to PDF</h1>
+      </div>
+      <p class="bt-subtitle">Seamless Image → PDF Conversion</p>
+    </header>
+
+
+    <main class="bt-main">
+      <div class="bt-layout">
+        <div class="col col-left">
+          <section id="upload-card" class="card upload-card" aria-label="Upload images">
+            <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Drag and drop images here">
+              <div class="dropzone__inner">
+                <img src="./assets/icons/upload.svg" class="dz-icon" alt="" aria-hidden="true" />
+                <h3 class="dz-title">Drop your images here</h3>
+                <p class="dz-text">JPG, JPEG, or PNG</p>
+                <div class="dz-divider">or</div>
+                <button id="select-files-btn" class="btn btn-primary">Upload Image(s)</button>
+                <input id="file-input" type="file" accept="image/png,image/jpg,image/jpeg" multiple hidden />
+              </div>
+            </div>
+            <div id="notif" class="notif" role="status" aria-live="polite"></div>
+            <ul class="trust-badges" aria-label="Trust indicators">
+              <li><span class="badge-emoji">🔒</span> Files never stored</li>
+              <li><span class="badge-emoji">⚡</span> Instant conversion</li>
+              <li><span class="badge-emoji">💎</span> Free & unlimited</li>
+            </ul>
+          </section>
+
+          <section class="card preview-section" aria-label="Image previews">
+            <div class="preview-header">
+              <div class="preview-title">Selected images</div>
+              <div class="preview-count"><span id="file-count">0</span> item(s)</div>
+            </div>
+            <div id="preview-grid" class="preview-grid"></div>
+          </section>
+        </div>
+
+        <div class="col col-right">
+          <section id="options-card" class="card options-card" aria-label="PDF options" hidden>
+            <div class="options">
+              <div class="opt-group">
+                <div class="opt-title">Page orientation</div>
+                <div class="segmented equal-2" role="group" aria-label="Orientation">
+                  <button class="segmented__btn" data-orientation="portrait" id="opt-portrait" type="button">
+                    <span class="icon-portrait" aria-hidden="true"></span>
+                    <span class="seg-text">Portrait</span>
+                    <span class="check" aria-hidden="true"></span>
+                  </button>
+                  <button class="segmented__btn is-active" data-orientation="landscape" id="opt-landscape" type="button">
+                    <span class="icon-landscape" aria-hidden="true"></span>
+                    <span class="seg-text">Landscape</span>
+                    <span class="check" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="opt-group">
+                <div class="opt-title">Fit</div>
+                <label class="switch">
+                  <input type="checkbox" id="opt-fit" />
+                  <span class="slider"></span>
+                  <span class="switch-label">Fit page to image size</span>
+                </label>
+                <div class="opt-hint">Uncheck to use A4 page size.</div>
+              </div>
+
+              <div class="opt-group">
+                <div class="opt-title">Margin</div>
+                <div class="segmented equal-3" role="group" aria-label="Margins">
+                  <button class="segmented__btn is-active" data-margin="none" id="margin-none" type="button">
+                    <span class="seg-text">No margin</span>
+                    <span class="check" aria-hidden="true"></span>
+                  </button>
+                  <button class="segmented__btn" data-margin="small" id="margin-small" type="button">
+                    <span class="seg-text">Small</span>
+                    <span class="check" aria-hidden="true"></span>
+                  </button>
+                  <button class="segmented__btn" data-margin="big" id="margin-big" type="button">
+                    <span class="seg-text">Big</span>
+                    <span class="check" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card actions-card">
+            <div class="actions">
+              <button id="convert-btn" class="btn btn-cta" disabled>
+                <span class="btn-label">Convert to PDF</span>
+                <span class="btn-spinner" aria-hidden="true"></span>
+              </button>
+               <!-- <div class="progress-bar" id="progress" aria-hidden="true"></div>-->
+              <div id="state" class="state"> 
+                <div id="loader" class="loader" aria-hidden="true"></div>
+                <div id="success" class="success" aria-hidden="true">
+                  <svg class="checkmark" viewBox="0 0 52 52" focusable="false" aria-hidden="true">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="24" fill="none"></circle>
+                    <path class="checkmark__check" d="M14 27 L22 35 L38 19" fill="none"></path>
+                  </svg>
+                  <p class="success-text">Your PDF is ready!</p>
+                  <button id="download-btn" class="btn btn-success" hidden>
+                    <svg class="icon icon--download" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                      <path d="M12 4v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M8.5 10.5L12 14l3.5-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M4 20h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span class="btn-text">Download PDF</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Configure backend endpoint for production deployment -->
+    <script>
+      // Auto-detect: use localhost for local dev, production URL for deployed site
+      const isLocalhost = window.location.hostname === "localhost" || 
+                         window.location.hostname === "127.0.0.1" ||
+                         window.location.hostname === "";
+      window.BYENTECH_BACKEND_URL = isLocalhost 
+        ? "http://localhost:5000" 
+        : "https://api.byentech.xyz";
+    </script>
+    <script src="./script.js"></script>
+  </body>
+</html>
+
+

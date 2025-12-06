@@ -1,0 +1,7 @@
+flask
+pillow
+fpdf
+flask-cors
+gunicorn
+
+
