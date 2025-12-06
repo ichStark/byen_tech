@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ByenTech JPG → PDF Converter
 ================================
 
@@ -114,3 +115,6 @@ Copyright © ByenTech.
 ```  ```
 
 
+=======
+# ByenTech
+>>>>>>> 2c759be8ffd6b07ec2b49b795d0b91005bf989e6
